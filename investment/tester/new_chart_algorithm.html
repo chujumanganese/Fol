@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            padding: 5em;
+        }
+        table{
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th{
+            padding: 1em;
+        }
+        canvas{
+            border: 1px solid black;
+            margin-top: 2em;
+        }
+    </style>
+</head>
+<body>
+    <!-- This is the new chart algorithm  -->
+    <table border="1px">
+        <thead>
+            <tr>
+                <td></td>
+                <th>May 2013</th>
+                <th>Jun 2013</th>
+                <th>Jul 2013</th>
+                <th>Aug 2013</th>
+                <th>Sept 2013</th>
+                <th>Oct 2013</th>
+            </tr>
+        </thead>
+        <tbody class="roddy">
+            <tr>
+                <th>USA</th>
+                <td>12</td>
+                <td>40</td>
+                <td>75</td>
+                <td>23</td>
+                <td>42</td>
+                <td>80</td>
+            </tr>
+            <tr>
+                <th>Canada</th>
+                <td>3</td>
+                <td>22</td>
+                <td>40</td>
+                <td>27</td>
+                <td>35</td>
+                <td>21</td>
+            </tr>
+            <tr>
+                <th>Australia</th>
+                <td>60</td>
+                <td>80</td>
+                <td>16</td>
+                <td>28</td>
+                <td>33</td>
+                <td>26</td>
+            </tr>
+            <tr>
+                <th>Brazil</th>
+                <td>46</td>
+                <td>7</td>
+                <td>14</td>
+                <td>26</td>
+                <td>36</td>
+                <td>24</td>
+            </tr>
+        </tbody>
+        <tr>
+            <th colspan="7" style="padding: 1em;">The table is designed by Ibe Emmanuel the designer </th>
+        </tr>
+    </table>
+    <div class="container-c48">
+        <canvas width="400px" height="400px"></canvas>
+    </div>
+    <script>
+        /* To make a chart that will be reponsive and stay with canvas. */
+        
+        /*
+            Algorithm 
+            1) extract the data from the table and put them into labels 
+            2) render it into the canvas as a line chart.
+
+            Note: The x part of the table is the x axis and the y part of the table is the y axis.
+            the label, is the part that is to house the data on the tables. 
+        */
+       
+        // class to control everything that has to with the canvas.
+        class cavana{
+            ctx;
+
+            constructor(canvas){
+                var l = document.querySelector(canvas);
+                this.ctx = l.getContext('2d');
+                this.canvas_rotate(l, this.ctx);
+            }
+            canvas_rotate(canv, ctx){
+                ctx.translate(0, canv.height);
+            }
+        }
+
+        class Table_operations{ /* To bring the table tag into the class */
+            html_table;
+            table_data = {};
+            
+            constructor(table){
+                this.html_table = document.querySelector(table);
+
+                this.table_data = {
+                    "xlabel": [],
+                    "ylabel": [],
+                    "label" : [],
+                    "data_groups": [],
+                    min_value: 20,
+                    max_value: 10
+                }
+            }
+            into_labels(childrens, labelr){ /* To put the tables into labels */
+                this.html_table.querySelectorAll(childrens).forEach((e)=>{
+                    this.table_data[labelr].push(e.innerText);
+                });
+                console.log(this.table_data[labelr])
+            }
+            calculations(box_gap, h){
+                var temporary = [];
+
+                this.html_table.querySelectorAll("tbody tr td").forEach((e)=>{
+                    temporary.push(parseFloat(e.innerText)); /* convert strings to numbers for calculations */
+                });
+                console.log(temporary);
+
+                // set the minimum and the maximum values for the graph.
+                this.table_data.min_value = Math.min(...temporary) > 0 ? 0 : Math.min(...temporary);
+                this.table_data.max_value = 1.1 * Math.max(...temporary);
+
+                console.log("min " + this.table_data.min_value, "max " +this.table_data.max_value);
+                
+                // dividing the table into ticks and boxes 
+                var ydeltapixels = box_gap;
+                var nticks = Math.round(h / ydeltapixels);
+                var ydelta /* no of lines of y-axis */ = Math.ceil((this.table_data.max_value - this.  table_data.min_value) / nticks);
+                console.log(ydelta);
+
+                // to set the values that will be seen at the y-axis of the chart
+                var  yval = this.table_data.min_value;
+
+                while(yval < (this.table_data.max_value - ydelta)){
+                    this.table_data["ylabel"].push(yval);
+                    yval += ydelta;
+                }
+                this.table_data["ylabel"].push(yval, this.table_data.max_value);
+                console.log(this.table_data["ylabel"]);
+            }
+            Data_Groups(){
+                var dgroups = [];
+
+                this.html_table.querySelectorAll("tbody.roddy tr").forEach(function(et){
+                    dgroups[et] = []// to create another array inside this array. 
+                    dgroups.push(dgroups[et]);
+                    
+                    et.querySelectorAll("td").forEach(function(f){
+                        var tdVal = parseFloat(f.innerHTML);
+                        dgroups[et].push(tdVal);
+                    });
+                })
+                console.log(dgroups);
+            }
+            second_calculation(h){
+                var parents = document.querySelector(".container-c48");
+                var next = document.querySelector("canvas");
+                var xDelta = 400 / (this.table_data["xlabel"].length - 1 );
+                var xlabelsUL = document.createElement("ul");
+
+                this.setting_attributes(xlabelsUL, "width", "400px");
+                this.setting_attributes(xlabelsUL, "height", "400px");
+                this.setting_attributes(xlabelsUL, "class", "xlabels-x");
+                parents.insertBefore(xlabelsUL, next);
+                var k = 0;
+               
+                this.table_data["xlabel"].forEach((i)=>{
+                    k++;
+                    var thisLi = document.createElement("li");
+                    var thisspan = document.createElement("span");
+                    var nextspan = document.createElement("span");
+
+                    this.setting_attributes(thisspan, "class", "label");
+                    this.setting_attributes(thisLi, "width", "0px");
+                    thisspan.innerHTML = i;
+                    thisLi.appendChild(thisspan);
+                    thisLi.prepend(nextspan, thisspan);
+                    this.setting_attributes(thisLi, "style", "left :" + xDelta * k + "px")
+                    xlabelsUL.append(thisLi);
+                    this.setting_attributes(nextspan, "class", "line");
+                })
+
+                var yrange = this.table_data.max_value - this.table_data.min_value;
+                var yScale = h / yrange;
+                var liBottom = h / (this.table_data["ylabel"].length - 1);
+                var ylabelsUL = document.createElement("ul");
+
+                this.setting_attributes(ylabelsUL, "width", "400px");
+                this.setting_attributes(ylabelsUL, "height", "400px");
+                this.setting_attributes(ylabelsUL, "class", "400px");
+                parents.insertBefore(ylabelsUL, next);
+
+                this.table_data["ylabel"].forEach((i)=>{
+                    k++;
+                    var thisLi = document.createElement("li");
+                    var thisspan = document.createElement("span");
+                    var nextspan = document.createElement("span");
+
+                    this.setting_attributes(thisspan, "class", "label");
+                    this.setting_attributes(thisLi, "width", "0px");
+                    thisspan.innerHTML = i;
+                    thisLi.appendChild(thisspan);
+                    thisLi.prepend(nextspan, thisspan);
+                    this.setting_attributes(thisLi, "style", "left :" +  liBottom * k + "px")
+                    ylabelsUL.append(thisLi);
+                    this.setting_attributes(nextspan, "class", "line");
+                })
+
+                // var liBottom = h / (tableData.ylabel.length-1);
+                // var ylabelsUL = $('<ul class="labels-y"></ul>')
+                // .width(400)
+                // .height(400)
+                // .insertBefore(canv);
+                // $.each(tableData.ylabel, function(i){
+                // var thisLi = $('<li><span>' + this + '</span></li>')
+                // .prepend('<span class="line" />')
+                // .css('bottom', liBottom * i)
+                // .prependTo(ylabelsUL);
+                var label = thisLi.find('span:not(.line)');
+                var topOffset = label.height() / -2;
+                if(i == 0){ topOffset = -label.height(); }
+                else if(i == tableData.ylabel.length - 1){ topOffset = 0; }
+                label
+                .css('margin-top', topOffset)
+                .addClass('label'); });
+                console.log(yScale);
+            }
+            setting_attributes(element, attr, value){
+                element.setAttribute(attr, value);
+            }
+        }
+
+        window.onload = ()=>{
+            the_canvas = new cavana("canvas"); /* The canvas object has been initialised. */
+            the_tables = new Table_operations("table") /* The table object being initialised */
+
+            the_tables.into_labels("thead tr th", "xlabel"); /* The xlables that is x- axis */
+            the_tables.into_labels("tbody tr th", "label"); /* The y-axis */
+            the_tables.into_labels("tbody tr td", "data_groups"); /* The normal data */
+            the_tables.calculations(30, 400); /* The normal data */
+            the_tables.Data_Groups(); /* The normal data */
+            the_tables.second_calculation(400); /* The normal data */
+        }
+
+    </script>
+</body>
+</html>

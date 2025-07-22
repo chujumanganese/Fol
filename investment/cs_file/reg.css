@@ -1,0 +1,120 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --q:rgba(0,0,0,0.5);
+    --qq:rgba(0,0,0,0.8);
+}
+body{
+    background: whitesmoke;
+}
+ul, li{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+input, select{
+    height: 2.7em;
+    padding: .3em;
+    margin-top: 0.5em;
+}
+.inner-container{
+    border: 1px solid black;
+    background: white;
+    min-height: 100dvh;
+    padding: 2em;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 1em 0;
+}
+.inner-container .centered{
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+.names-op{
+    display: flex;
+    flex-direction: column;
+    padding: .5em;
+}
+.names-op label{
+    color: var(--qq);
+}
+.centered p{
+    color: var(--q);
+}
+.checker{
+    display: grid;
+    grid-template-columns: 6% 70%;
+    gap: 1em;
+    place-content: center;
+    align-items: center;
+    height: auto;
+}
+.inner-container .only-me{
+    text-align: center;
+    margin: .5em;
+}
+.container-class{
+    max-width: 500px;
+    margin: auto;
+}
+button{
+    min-height: 2em;
+    text-align: center;
+    background:  #808080;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+}
+.gat{
+    text-align: center;
+}nav{
+    background: black;
+    color: white;
+    height: 50px;
+}
+nav ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+nav ul li{
+    margin-left: 2em;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+input[type="text"]:focus{
+    outline: none;
+    border: 1px solid gray;
+    border-bottom: 2px solid green;
+}
+.container-class{
+    animation: sd 1s linear;
+}
+@keyframes sd {
+    from{
+        transform: scale(0%);
+        opacity: 0;
+    }
+    to{
+        transform: scale(100%);
+        opacity: 1;
+    }
+}
+@media (max-width: 480px) {
+    .container-class{
+        width: 100%;
+        padding: 1em;
+    }
+    .inner-container{
+        padding: 2em 0;
+    }
+}

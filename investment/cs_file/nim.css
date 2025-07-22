@@ -1,0 +1,66 @@
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+ul, li{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+.inner-class{
+    padding: 1em;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 6% 94%;
+}
+.inner-class h1{
+    text-align: center;
+}
+.box-of-users{
+    height: 100px;
+    padding-top: 0.5em;
+    position: relative;
+}
+.equality .mk{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1em;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    padding: .5em 0;
+    color: white;
+    text-align: center;
+}
+.gridwines{
+    height: 80%;
+    display: grid;
+    grid-template-columns: 300px auto;
+}
+.admin-priviledges{
+    margin-top: 1em;
+    border-right: 1px solid black;
+}
+.admin-priviledges h2{
+    text-align: left;
+    color: rgba(0,0,0,0.6);
+}
+.admin-priviledges ul li{
+    padding: 1em;
+    color: rgba(0,0,0,0.7);
+}
+.fluctuate ul{
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+.fluctuate ul li{
+    padding: 1em;
+}
+.fluctuate ul li:hover{
+    border-bottom: 5px solid cornflowerblue;
+}

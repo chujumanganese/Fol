@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            padding: 5em;
+        }
+        table{
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th{
+            padding: 1em;
+        }
+        canvas{
+            border: 1px solid black;
+            margin-left: 2em;
+        }
+    </style>
+    <link rel="stylesheet" href="badstyle.css">
+</head>
+<body>
+    <!-- to use canvas to create chrats that are formed using css tables -->
+    <table border="1px">
+        <thead>
+            <tr>
+                <th></th>
+                <th>May 2013</th>
+                <th>Jun 2013</th>
+                <th>Jul 2013</th>
+                <th>Aug 2013</th>
+                <th>Sept 2013</th>
+                <th>Oct 2013</th>
+            </tr>
+        </thead>
+        <tbody class="roddy">
+            <tr>
+                <th>USA</th>
+                <td>12</td>
+                <td>40</td>
+                <td>75</td>
+                <td>23</td>
+                <td>42</td>
+                <td>80</td>
+            </tr>
+            <tr>
+                <th>Canada</th>
+                <td>3</td>
+                <td>22</td>
+                <td>40</td>
+                <td>27</td>
+                <td>35</td>
+                <td>21</td>
+            </tr>
+            <tr>
+                <th>Australia</th>
+                <td>60</td>
+                <td>80</td>
+                <td>16</td>
+                <td>28</td>
+                <td>33</td>
+                <td>26</td>
+            </tr>
+            <tr>
+                <th>Brazil</th>
+                <td>46</td>
+                <td>7</td>
+                <td>14</td>
+                <td>26</td>
+                <td>36</td>
+                <td>24</td>
+            </tr>
+        </tbody>
+        <tr>
+            <td colspan="7" style="padding: 1em;">The table is designed by Ibe Emmanuel the designer </td>
+        </tr>
+    </table>
+    
+    <!-- The canvas part of the code. -->
+    <canvas width="400px" height="400px"></canvas>
+
+    <script src="../java/a.js"></script>
+    <script>
+       window.onload = function(){
+        const canv = document.querySelector("canvas");
+        const ctx = canv.getContext('2d');
+        ctx.translate(0, canv.height);
+
+                //to bring the table into javascript domain
+        var tableData = {}; // to hold the table data 
+        var table  = document.querySelector("table");
+
+        //create the canvas labels 
+        tableData.xlabel = [];
+        tableData.ylabel = [];
+        tableData.label = [];
+
+        // putting the table xlabel into the array
+        table.querySelectorAll("thead tr th").forEach(function(e){
+            tableData.xlabel.push(e.innerText);
+        });
+
+        //putting the ylabel part into the array
+        table.querySelectorAll("tbody tr th").forEach(function(e){
+            tableData.label.push(e.innerText);
+        });
+
+        // we want to fill the data into the tables 
+        tableData.dataGroups = [];
+
+        // we want to find the ranges that will lie at the bottom of the chart 
+        var tmp = [];
+        table.querySelectorAll("tbody tr td").forEach(function(e){
+            tmp.push(parseFloat(e.innerText));
+        });
+        tmp.pop(NaN); // to remove the last rubbish value 
+
+        if(Math.min(...tmp) > 0){ // to check the smallest value
+            tableData.minVal = 0;
+        }else{
+            tableData.minVal = Math.min(...tmp);
+        }
+
+        //setting the maximum value
+        tableData.maxVal = 1.1 * Math.max(...tmp);
+
+        //set the ylabels that will bear the ticks 
+        var yDeltaPixels = 30;
+
+        var nticks = Math.round(360 / yDeltaPixels); //the number of ticks 
+        var yrange = tableData.maxVal - tableData.minVal; //88 
+        var ydelta /*mean */ = Math.ceil(yrange / nticks);
+
+        /* starting from the bottom */ 
+        var yval = tableData.minVal;
+       
+        while(yval < (tableData.maxVal - ydelta)){
+            tableData.ylabel.push(yval);
+            yval += ydelta;
+        } 
+        
+        tableData.ylabel.push(yval);
+        tableData.ylabel.push(tableData.maxVal);
+        
+
+        // the data groups to be implemented.
+        
+        tableData.dataGroups = [];
+
+        table.querySelectorAll("tbody.roddy tr").forEach(function(et){
+        tableData.dataGroups[et] = []// to create another array inside this array. 
+        tableData.dataGroups.push(tableData.dataGroups[et]);
+        
+        et.querySelectorAll("td").forEach(function(f){
+            var tdVal = parseFloat(f.innerHTML);
+            tableData.dataGroups[et].push(tdVal);
+        });
+        
+        })
+
+
+        // set the margins of the canvas using an object
+        var margins = {
+            top: 20,
+            left: 20,
+            right: 20,
+            bottom: 20,
+        }
+
+        //setting the size of the rectangles and the starting and the ending point of the rectangles.
+        var w = canv.width - (margins.left + margins.right);
+        var h = canv.height - (margins.top + margins.bottom);
+
+        ctx.strokeRect(margins.left, -margins.bottom, w, -h);
+
+        /* drawing the real stuff with canvas */
+        console.log(tableData.xlabel.length);
+
+        var xDelta = 400 / (tableData.xlabel.length -1 );
+        var xlabelsUL = $('<ul class="labels-x"></ul>')
+        .width(400)
+        .height(400)
+        .insertBefore(canv);
+     
+        $.each(tableData.xlabel, function(i){
+            var thisLi = $('<li><span class="label">' + this + '</span></li>')
+            .prepend('<span class="line" />')
+            .css('left', xDelta * i)
+            .width(0)
+            .appendTo(xlabelsUL);
+            var label = thisLi.find('span.label');
+            label.addClass('label');
+
+            // console.log(i);
+            });
+
+        var yScale = h / yrange;
+        var liBottom = h / (tableData.ylabel.length-1);
+        var ylabelsUL = $('<ul class="labels-y"></ul>')
+        .width(400)
+        .height(400)
+        .insertBefore(canv);
+        $.each(tableData.ylabel, function(i){
+        var thisLi = $('<li><span>' + this + '</span></li>')
+        .prepend('<span class="line" />')
+        .css('bottom', liBottom * i)
+        .prependTo(ylabelsUL);
+        var label = thisLi.find('span:not(.line)');
+        var topOffset = label.height() / -2;
+        if(i == 0){ topOffset = -label.height(); }
+        else if(i == tableData.ylabel.length - 1){ topOffset = 0; }
+        label
+        .css('margin-top', topOffset)
+        .addClass('label');
+        });
+
+        ctx.lineWidth = 5;
+
+        for(var i in tableData.dataGroups){
+            var points = tableData.dataGroups[i];
+            ctx.moveTo(0, -points[i]);
+            ctx.strokeStyle = "green";
+            ctx.beginPath();
+            var xVal = margins.left;
+            for(var j in points){
+            var relY = (points[j] * h /tableData.maxVal) + 10;
+            ctx.lineTo(xVal, -relY);
+            xVal += xDelta;
+            }
+            ctx.stroke();
+            ctx.closePath();
+        }
+       }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+.gridwines{
+    grid-template-columns: 1fr;
+}
+.gridwines .admin-priviledges{
+    border: 0;
+}
+.box-of-users p{
+    text-align: left;
+}

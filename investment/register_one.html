@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+   
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        label{
+            user-select: none;
+        }
+        select:active, select:hover{
+            outline: 0;
+        }
+        select{
+            background: transparent;
+            color: rgba(255, 255, 255, 0.658);
+            padding: .56em;
+            outline: 0;
+        }
+        a{ color: white; text-decoration: none;}
+        body{
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        form{
+            border: 0.5px solid white;
+            max-width: 800px;
+            padding: 1em;
+            border-radius: 16px;
+            background: #283618;
+            backdrop-filter: blur(100px);
+            box-shadow:inset 1px 1px 5px white,
+                       inset -1px -2px 5px white;
+        }
+        form h1{
+            text-align: center;
+        }
+        h1 span{
+            color: #ADC178;
+        }
+        .a{
+            display: flex;
+            flex-direction: column;
+            border-radius: 20px;
+            margin: 1em 0;
+        }
+        .a label:not(.choose){
+            background: #aec17865;
+            padding: 0.5em;
+            backdrop-filter: blur(100px);
+            border-radius: 5px 5px 0 0;
+            color: white;
+        }
+        input{
+            background: transparent;
+            color: white;
+            padding: 0.76em;
+        }
+        input:hover, input:focus, input:active{
+            outline: 0;
+        }
+        input::placeholder{
+            color:rgba(255, 255, 255, 0.664);
+        }
+        input.w{
+            padding: 0;
+            height: 30px;
+            border: 1px solid rgba(211, 211, 211, 0.432);
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: inset 2px 2px 10px white,
+                        inset -5px -2px 20px #ADC178;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+        }
+        .ds{
+            margin-bottom: 1em;
+        }
+        .ds p{
+            text-align: center;
+            margin-top: 0.5em;
+        }
+        p>a {
+            font-weight: 800;
+            color: #e9c46a;
+        }
+        .tok{
+            text-align: center;
+        }
+        .tok p{
+            color: rgba(255, 255, 255, 0.692);
+        }
+        input:focus-within{
+            color: orange;
+        }
+        .hd{
+            display: flex;
+            gap: 1em;
+            margin-block:.5em 0;
+        }
+        .hd .ok{
+            margin-bottom: 0.5em;
+        }
+        .opinion{
+            display: flex;
+            gap: 1em;
+        }
+        .groups{
+            display: flex;
+            flex-wrap: wrap;
+            /* border:  1px solid white; */
+            column-gap: 1em;
+        }
+        .groups>.a{
+            flex-grow: 1;
+            flex-basis: 200px;
+            flex-shrink: 0;
+        }
+        .errors{
+            --redt:#F44336;
+            height: 30px;
+            padding-left: .3em;
+            color: var(--redt);
+            padding-block: .2em;
+        }
+        @media (min-width: 820px) {
+            form{
+                width: 800px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="loader.css">
+</head>
+<body>
+    <form action="" >
+        <div class="a tok">
+            <h1 style="margin-bottom: 0.6em;"><span>F</span>E<span>R</span>O<span>K</span></h1>
+            <h1>Create Account</h1>
+            <p>Register to create an account and gain access</p>
+        </div>
+        <div class="groups">
+            <div class="a">
+                <label for="username">Name</label>
+                <input type="text" placeholder="Enter your name" id="form-username" name="Name"  autocomplete="off">
+                <span class="errors"></span>
+            </div>
+            <div class="a">
+                <label for="Type_email">Email</label>
+                <input type="email" placeholder="Enter your email" id="form-email" minlength="11" name="Email">
+                <span class="errors"></span>
+            </div>
+        </div>
+        <div class="groups">
+            <div class="a">
+                <label for="phone">Phone number</label>
+                <input type="tel" placeholder="Phone no" title="Type number" id="form-phone" minlength="8" name="phone number">
+                <span class="errors"></span>
+            </div>
+            <div class="a">
+                <label for="form-countries">Country</label>
+                <select name="country" id="form-countries">
+                    <option value="">Select country</option>
+                </select>
+                <span class="errors"></span>
+            </div>
+        </div>
+        <div class="groups">
+            <div class="a">
+                <label for="refs">Ref (optional)</label>
+                <input type="text" placeholder="Enter referral link (optional)" id="form-refs" title="Paste ref link" name="reflink">
+                <span class="errors"></span>
+            </div>
+            <div class="a">
+                <label for="first_pass">Post Code</label>
+                <input type="number" placeholder="Enter address" title="Post code" id="postalcode" name="pcode">
+                <span class="errors"></span>
+            </div>
+        </div>
+        <div class="groups">
+            <div class="a">
+                <label for="first_pass">Password</label>
+                <input type="text" placeholder="Enter password" title="Type password" id="first_pass" name="Password">
+                <span class="errors"></span>
+            </div>
+            <div class="a">
+                <label for="confirm_pass">Confirm password</label>
+                <input type="text" placeholder="Confirm password" title="Retype password" id="confirm_pass" name="conpword">
+                <span class="errors"></span>
+            </div>
+        </div>
+        <div class="a" style="margin-top: 0em;">
+            <label for="" class="ok">Gender</label>
+            <div class="opinion">
+                <div class="hd">
+                    <input type="radio" name="genders" id="male_gen"><label for="male_gen" class="choose">Male</label>
+                </div>
+                <div class="hd">
+                    <input type="radio" name="genders" id="fem_gen"><label for="fem_gen" class="choose">Female</label>
+                </div>
+                <div class="hd">
+                    <input type="radio" name="genders" id="o_gen"><label for="o_gen" class="choose">Not to say</label>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="form-success">
+        <div class="a ds">
+            <input type="submit" value="Register" class="w" title="Click to submit form" id="forms_submit">
+            <p>Already have an account? <a href="login.html" title="Click to login">Login Here</a></p>
+        </div>
+    </form>
+     <!-- Loading html -->
+     <div class="super-containers">
+        <div class="containering112">
+            <div class="load" style="--colo:red"></div>
+            <div class="load df" style="--colo:yellow"></div>
+            <div class="load" style="--colo:green"></div>
+         </div>
+     </div>
+
+     <script type="text/javascript" src="roberto.js"></script>
+    <!-- <script language="javascript" type="text/javascript" src="lol.js"></script> -->
+</body>
+</html>

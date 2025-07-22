@@ -1,0 +1,203 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+@font-face {
+    font-family: 'poppins';
+    src: url('poppins/Poppins-Light.ttf') format('truetype');
+}
+ul, li{
+    list-style: none;
+}
+body{
+    display: grid;
+    grid-template-areas:
+        "a a a b b b b b b b b b" 
+        "a a a b b b b b b b b b"
+        "a a a b b b b b b b b b"
+    ;
+    min-height: 100dvh;
+    font-family: "poppins", cursive;
+    position: relative;
+}
+body::-webkit-scrollbar{
+    display: none;
+}
+.side{
+    grid-area: a;
+    background: #283618;
+}
+.full-body{
+    grid-area: b;
+    background: #606c38;
+}
+.full-body header{
+    color: yellow;
+    padding: .7em;
+    box-shadow: 0 2px 2px white;
+}
+.full-body header ul{
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+.full-body .info{
+    padding: 1em;
+    color: white;
+}
+.box{
+    width: 19px;
+    height: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.box .lines{
+    background: rgba(255, 255, 0, 0.5);
+    height: 2px;
+}
+.info ul{
+    display: flex;
+    flex-wrap: wrap;
+    padding-block: 1em;
+    gap: 1em;
+}
+.info li{
+    display: flex;
+    flex-grow: 1;
+    gap: 1em;
+}
+.info ul li .boxr{
+    border-radius: 6px;
+    width: 150px;
+    flex: 1 0 100px;
+}
+.boxr .head{
+    padding: 0.5em;
+    padding-bottom: 1.5em;
+}
+.boxr .base, .first .about{
+    background: rgba(255, 255, 255, 0.137);
+    backdrop-filter: blur(100px);
+    padding-inline: 1em;
+}
+section{
+    display: flex;
+    padding: 1em;
+    color: white;
+}
+section .first{
+    width: 400px;
+    background: rgba(255, 255, 255, 0.089);
+    backdrop-filter: blur(100px);
+    border-radius: 5px;
+}
+.first .about{
+    font-weight: bold;
+    border-radius: 5px 5px 0  0;
+}
+.first p{
+    padding: 1em;
+}
+.admin-dropdown{
+    padding-block: 1em 1em;
+    padding-inline: 1em 2em;
+}
+.admin-dropdown .boards{
+    height: 18.75em;
+    border: 1px solid white;
+    margin-bottom: 2em;
+    background: rgba(255, 255, 255, 0.089);
+    backdrop-filter: blur(100px);
+    border-radius: 5px;
+    box-shadow: 0.2px 0.2px 1px white, -0.5px -0.5px 10px white;
+}
+.admin-dropdown h1{
+    color: white;
+    margin-bottom: 0.5em;
+}
+header ul .top-roght{
+    margin-left: auto;
+    cursor: pointer;
+}
+.maps{
+    color: white;
+    padding: 1em;
+}
+.maps .parent{
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+}
+.maps .children{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.7s ease-out;
+    padding-left: 1em;
+}
+.children .child{
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.65);
+}
+.children.accordion{
+    display: block; 
+    max-height: 200px;
+}
+.side{
+    min-height: 100dvh;
+}
+/* This part of the code is for the search buttons */
+.search-container{
+    height: 3.125em;
+    width: 100dvw;
+    background: rgba(255, 255, 255, 0.651);
+    display: flex;
+    align-items: center;
+    padding-inline: 2em 3em;
+    font-size: 1.2rem;
+    backdrop-filter: blur(100px);
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    box-shadow: 3px 3px 10px black;
+    animation: wrd 0.6s linear;
+    display: none;
+}
+@keyframes wrd {
+    0%{
+        left: -100%;
+    }
+    50%{
+        left: -50%;
+    }
+    75%{
+        left: -30%;
+    }
+    85%{
+        left: -15%;
+    }
+    100%{
+        left: 0%;
+    }
+}
+.search-container.off_x{
+    display: flex;
+}
+.search-container input{
+    height: 80%;
+    width: 12.5em;
+    font-size: inherit;
+    border: 0;
+    outline: 0;
+    background: transparent;
+}
+.search-container .x{
+    font-size: inherit;
+    margin-left: auto;
+    cursor: pointer;
+    font-weight: 800;
+}
+/* border: 1px solid black; */

@@ -1,0 +1,27 @@
+
+.slide-in-one{
+    display: none;
+}
+main{
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 80%;
+}
+.containerss .ookli{
+    display: flex;
+    justify-content: center;
+}
+.ookli h1{
+    margin-left: .2em;
+}
+.containerss p{
+    text-align: center;
+}
+main .containerss{
+    padding-top: 1em;
+}
+.goup{
+    max-height: 80%;
+}
+main .accordion-c{
+    padding-top: 1em;
+}

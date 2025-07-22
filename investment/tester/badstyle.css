@@ -1,0 +1,51 @@
+ul, .li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+canvas{
+    position: relative;
+    /* margin-top: 2em; */
+}
+.labels-x, .labels-y {
+    position: absolute;
+    /* left: 0px; */
+}
+.labels-x li {
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+}
+.labels-x li span.label {
+    position: absolute;
+    color: #555;
+    top: 100%;
+    margin-top: 5px;
+    left:-15;
+}
+.labels-x li span.line{
+    position: absolute;
+    border: 0 solid #ccc;
+    border-left-width: 1px;
+    height: 100%;
+}
+.labels-y li {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 17px;
+}
+.labels-y li span.label {
+    position: absolute;
+    color: #555;
+    right: 100%;
+    margin-right: 5px;
+    width: 100px;
+    text-align: right; 
+}
+.labels-y li span.line {
+    position: absolute;
+    border: 0 solid #ccc;
+    border-top-width: 1px;
+    width: 100%;
+}

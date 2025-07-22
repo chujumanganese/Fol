@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+       .container{
+            height: 200px;
+            width: 200px;
+            border: 1px solid black;
+            background: linear-gradient(#fb3 30%, #58a 30%);
+            background-size: 100% 50px;
+            margin: 2em;
+       }
+       .pie {
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            background: yellowgreen;
+            margin: 4em;
+            background-image: linear-gradient(to right, transparent 50%, #655 0);
+        }
+        .pie::before {
+            content: '';
+            display: block;
+            margin-left: 50%;
+            height: 100%;
+            background-color: inherit;
+            border-radius: 0 100% 100% 0 / 50%;
+            transform-origin: left;
+            transform: rotate(.1turn);
+        }
+      
+    </style>
+</head>
+<body>
+    <!-- Testing the linear gradient -->
+     <div class="container"></div>
+     <div class="pie"></div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrator page</title>
+    <link rel="stylesheet" href="../cs_file/nim.css">
+    <link rel="stylesheet" href="../cs_file/admin-query.css" media="screen and (max-width:920px)">
+    <style>
+        .gg34{
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            height: 40px;
+            width: 100%;
+            justify-content: space-between;
+            padding-inline: 1em;
+        }
+        .gg34 button{
+            width: 8em;
+            height: 25px;
+            color: white;
+            background: black;
+            margin: 0 auto;
+            border-radius: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="inner-class">
+        <h1>Administrator</h1>
+        <div class="equality">
+            <div class="mk">
+                <div class="box-of-users" style="background: green;">
+                    <p>Number of registered Users</p>
+                    <div class="gg34">
+                        <button id="how_many_users">Load value</button>
+                        <h2 id="users_count" >0</h2>
+                    </div>
+                </div>
+                <div class="box-of-users" style="background: red;">
+                    <p>Number of registered Users</p>
+                    <h2>0</h2>
+                </div>
+                <div class="box-of-users" style="background: orange;">
+                    <p>Number of registered Users</p>
+                    <h2>0</h2>
+                </div>
+                <div class="box-of-users" style="background: cornflowerblue;">
+                    <p>Number of registered Users</p>
+                    <h2>0</h2>
+                </div>
+                <div class="box-of-users" style="background: yellowgreen;">
+                    <p>Number of registered Users</p>
+                    <h2>0</h2>
+                </div>
+                <div class="box-of-users" style="background: red;">
+                    <p>Number of registered Users</p>
+                    <h2>0</h2>
+                </div>
+            </div>
+            <div class="gridwines">
+                <div class="admin-priviledges">
+                    <h2>Admin activities</h1>
+                    <ul>
+                        <li><button id="lists_of_users">List of Users</button></li>
+                        <li><button id="change_name_23">Change bussiness name</button></li>
+                        <li><a href="">Change password</a></li>
+                        <li><a href="">Update Admin</a></li>
+                        <li><a href="">Delete users</a></li>
+                        <li><a href="">Update users</a></li>
+                        <li><a href="">Update Admin</a></li>
+                        <li><a href="register.html">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="fluctuate">
+                    <ul>
+                        <li>Home</li>
+                        <li>Registration</li>
+                        <li>Notification</li>
+                    </ul>
+                    <div class="space"></div>
+                </div>
+                <style>
+                    .space, table td{
+                        padding: 1em;
+                    }
+                    table td{
+                        text-align: left;
+                    }
+                     
+                </style>
+            </div>
+        </div>
+    </div>
+    <script src="../java/a.js"></script>
+    <script src="../java/ajax-for-a.js"></script>
+</body>
+</html>

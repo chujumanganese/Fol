@@ -1,0 +1,39 @@
+.cookie{
+    display: none;
+}
+@media (max-width: 480px) {
+    .cookie{display: block;}
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .cookie{
+        height: 100dvh;
+        position: relative;
+    }
+    .cookie .cookie-body{
+        background-color: hsla(0, 0%, 0%, 0.741);
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 1em;
+    }
+    .cookie-body p{
+        line-height: 1.79;
+        color: white;
+    }
+    .cookie-body .btn{
+        height: 2.7em;
+        margin-top: 1em;
+        display: flex;
+        justify-content: space-between;
+    }
+    .cookie-body .btn button{
+        height: 100%;
+        width: 100px;
+        border-radius: 10px;
+        border: 0;
+        color: white;
+    }
+}

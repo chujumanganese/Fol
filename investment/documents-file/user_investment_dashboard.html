@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>software engineering</p>
+    <div id="olo"></div>
+    <button onclick="q()">send to server</button>
+
+    <script>  
+        //send a request to a server
+        function q(){
+            var variable = new XMLHttpRequest();
+            variable.open("GET", "");
+            variable.send();
+
+            variable.onreadystatechange = function() {
+                if (variable.readyState == 4 && variable.status == 200) {
+                    document.getElementById("olo").innerHTML = variable.responseText;
+                }
+                
+            }
+    }
+        
+    </script>
+</body>
+</html>
